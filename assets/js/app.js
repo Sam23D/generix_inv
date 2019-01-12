@@ -15,6 +15,10 @@ const state = {
 
 const actions = {
   echo: value => state => (console.log(state),{ }),
+  form_1 : {
+    generix_input_value_change : ({value, value_key, form_key})=> state => ({ [value_key] : value} ),
+    generix_form_submition: ({form_key}) => state => (console.log(state),{  })
+  }
 }
 
 const view = (state, actions) =>
@@ -36,14 +40,14 @@ const main = (state, actions) =>
 
 const main_side = (state, actions) =>
   h("div", {class: "h-full w-48 bg-grey-lightest px-2 py-4"}, [
-     "Side" 
+    h("button", { onclick: ()=>console.log(state), class : "" }, ["content"])
   ])
 
 const main_content = (state, actions) =>
   h("div", {class: "bg-white p-4"}, [
      h("div", { class : "flex text-purple font-bold mb-4"}, [ "Inventario" ]),
      h("p", { class : "" }, [
-       generix_form(schema, { action: "/api/items", method: "post" }, state, actions)
+       generix_form(schema, { action: "/api/items", method: "post", form_key: "form_1" }, state, actions)
      ])
   ])
 
