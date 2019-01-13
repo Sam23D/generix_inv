@@ -10,7 +10,7 @@ const state = {
   items : {
     data: [{inventory: "12", id: 1, description: null, code: "h21"}]
   },
-  form_1 : {}
+  form_1 : { inventory: "80" }
 }
 
 const actions = {
