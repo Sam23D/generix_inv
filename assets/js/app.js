@@ -10,14 +10,14 @@ const state = {
   items : {
     data: [{inventory: "12", id: 1, description: null, code: "h21"}]
   },
-  form_1 : { inventory: "80" }
+  form_1 : { }
 }
 
 const actions = {
   echo: value => state => (console.log(state),{ }),
   form_1 : {
     generix_input_value_change : ({value, value_key, form_key})=> state => ({ [value_key] : value} ),
-    generix_form_submition: ({form_key}) => state => (console.log(state),{  })
+    generix_form_submition: ({form_key}) => state => (console.log("state", state),{  })
   }
 }
 
@@ -47,9 +47,7 @@ const main_content = (state, actions) =>
   h("div", {class: "bg-white p-4"}, [
      h("div", { class : "flex text-purple font-bold mb-4"}, [ "Inventario" ]),
      h("p", { class : "" }, [
-       generix_form(schema, { 
-          action: "/api/items", 
-          method: "post", 
+       generix_form(schema, {
           form_key: "form_1"
         }, state, actions)
      ])

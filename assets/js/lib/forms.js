@@ -11,7 +11,7 @@ export const schema = {
   },
   inventory : { 
     type: "number",
-    
+    validation : ( value )=>( { valid : parseInt(value) > 5, value: value } )
   },
 
 }
@@ -23,17 +23,15 @@ export const schema = {
         type: type,
         validation: ( value ) => { valid: boolean, value: value }
        }} =>
-      { action**, method**, form_key, callback } =>
+      { form_key } =>
       { state } =>
       { actions } =>
 
 */
 // FORM_ID
-export const generix_form = ( schema, { action, method, form_key, callback }, state, actions ) =>{
+export const generix_form = ( schema, { form_key }, state, actions ) =>{
   let is_form_valid = true
   let inputs = Object.keys(schema).map(( value_key )=>{
-
-    let validation_function = schema[value_key].validation || function( val ){ return{ valid: true } };
     let this_input_value = state[form_key][value_key] || "";
     let validated_input = validate_with(this_input_value, schema[value_key]) 
     is_form_valid =  ( !is_form_valid | !validated_input.valid ) ? false : true
@@ -47,10 +45,7 @@ export const generix_form = ( schema, { action, method, form_key, callback }, st
       type: schema[value_key].type || schema[value_key], 
       placeholder: value_key }, [])
   })
-
-  return h("form", { 
-    action: action,
-    method: method,
+  return h("form", {
     class : "flex flex-col w-64 bg-grey-lightest p-2 border border-blue-lightest" 
   }, [
     ...inputs,
@@ -61,8 +56,7 @@ export const generix_form = ( schema, { action, method, form_key, callback }, st
 let submit_button = (state, actions, form_key, is_form_valid)=>{
   let color = !is_form_valid ? "grey" : "blue"
   return h("button", { 
-      onclick : ()=>{ 
-        console.log(state)
+      onclick : ()=>{
         actions[ form_key ].generix_form_submition({value: 10, form_key: form_key}) 
       },
       disabled: !is_form_valid,
