@@ -1,10 +1,14 @@
 import "phoenix_html"
-import { generix_form, schema} from "./lib/forms"
+import { generix_form} from "./lib/forms"
 
 
 const { h, app } = hyperapp
 
-
+const nueva_pieza_form_schema = {
+  description : { type: "string", validation : ( desc )=>( { valid : desc.length > 5, value: desc } )},
+  codigo : { type: "string" },
+  inventory : { type: "number", validation : ( value )=>( { valid : parseInt(value) > 5, value: value } )},
+}
 
 const state = {
   items : {
@@ -15,7 +19,7 @@ const state = {
 
 const actions = {
   echo: value => state => (console.log(state),{ }),
-  form_1 : {
+  nueva_pieza_form : {
     generix_input_value_change : ({value, value_key, form_key})=> state => ({ [value_key] : value} ),
     generix_form_submition: ({form_key}) => state => (console.log("state", state),{  })
   }
@@ -47,9 +51,7 @@ const main_content = (state, actions) =>
   h("div", {class: "bg-white p-4"}, [
      h("div", { class : "flex text-purple font-bold mb-4"}, [ "Inventario" ]),
      h("p", { class : "" }, [
-       generix_form(schema, {
-          form_key: "form_1"
-        }, state, actions)
+       generix_form(nueva_pieza_form_schema, {form_key: "nueva_pieza_form"}, state, actions)
      ])
   ])
 

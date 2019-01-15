@@ -1,20 +1,6 @@
 
 const { h, app } = hyperapp
 
-export const schema = {
-  description : {
-    type: "string",
-    validation : ( desc )=>( { valid : desc.length > 5, value: desc } )
-  },
-  codigo : {
-    type: "string"
-  },
-  inventory : { 
-    type: "number",
-    validation : ( value )=>( { valid : parseInt(value) > 5, value: value } )
-  },
-
-}
 /* 
     OPTIONAL **
 
@@ -28,7 +14,6 @@ export const schema = {
       { actions } =>
 
 */
-// FORM_ID
 export const generix_form = ( schema, { form_key }, state, actions ) =>{
   let is_form_valid = true
   let inputs = Object.keys(schema).map(( value_key )=>{
