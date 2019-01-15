@@ -61,6 +61,6 @@ let validate_with = (value, { validation }) => {
     :  validation( value )
 }
 
-let input_border = ({ valid, value })=>{
+let input_border = ({ valid })=>{
   return valid ? "border-green-dark" : "border-red"
 }
