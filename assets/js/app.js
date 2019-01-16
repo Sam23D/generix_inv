@@ -62,8 +62,31 @@ const main_content = (state, actions) =>
   h("div", {class: "bg-white p-4"}, [
      h("div", { class : "flex text-purple font-bold mb-4"}, [ "Inventario" ]),
      h("p", { class : "" }, [
-       generix_form(nueva_pieza_form_schema, {form_key: "nueva_pieza_form"}, state, actions)
+       generix_form(nueva_pieza_form_schema, {form_key: "nueva_pieza_form"}, state, actions),
+       item_list
+
      ])
   ])
+
+const item_list = (state, actions)=>
+  h("table", {
+    class : `
+      bg-grey-lightest
+      border rounded
+      text-black
+    `
+  }, [
+    { code: "h20", desc: "pieza", inventory: 100 },
+    { code: "h21", desc: "pieza con desc", inventory: 200 },
+    { code: "h22", desc: "pieza s", inventory: 150 },
+  ].map(item_row))
+
+const item_row = ( item_object )=>{
+  let cols = Object.keys( item_object ).map((key)=> item_col(item_object[key]) )
+  return h("tr", { class : "border-b hover:bg-grey-lighter" }, cols)
+}
+
+const item_col = (label)=>
+  h("td", { class : "px-3 py-2"}, [ label ])
 
 app(state, actions, view, document.body)
