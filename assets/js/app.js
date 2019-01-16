@@ -5,9 +5,13 @@ import { generix_form} from "./lib/forms"
 const { h, app } = hyperapp
 
 const nueva_pieza_form_schema = {
-  description : { type: "string", validation : ( desc )=>( { valid : desc.length > 5, value: desc } )},
+  description : { type: "string", 
+    //validation : ( desc )=>( { valid : desc.length > 5, value: desc } )
+  },
   codigo : { type: "string" },
-  inventory : { type: "number", validation : ( value )=>( { valid : parseInt(value) > 5, value: value } )},
+  inventory : { type: "number", 
+    //validation : ( value )=>( { valid : parseInt(value) > 5, value: value } )
+  },
 }
 
 const state = {
@@ -21,7 +25,14 @@ const actions = {
   echo: value => state => (console.log(state),{ }),
   nueva_pieza_form : {
     generix_input_value_change : ({value, value_key, form_key})=> state => ({ [value_key] : value} ),
-    generix_form_submition: ({form_key}) => state => (console.log("state", state),{  })
+    generix_form_submition: ({form_key}) => state => {
+      fetch("/api/items")
+      .then((resp)=>(resp.json()))
+      .then((data)=>{ console.log(data) })
+      .catch(( err )=>{
+        console.error(err)
+      })
+    }
   }
 }
 
