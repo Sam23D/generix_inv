@@ -21,7 +21,7 @@ export const generix_form = ( schema, { form_key }, state, actions ) =>{
     let validated_input = validate_with(this_input_value, schema[value_key]) 
     is_form_valid =  ( !is_form_valid | !validated_input.valid ) ? false : true
     return hyperapp.h("input", { 
-      class : ` w-full mb-2 p-2
+      class : ` w-full mb-2 px-2 py-1
                 border 
                 ${ input_border( validated_input ) }
                 `, 
